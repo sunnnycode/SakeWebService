@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 관리</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+            color: #333;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .checkbox-column {
+            width: 40px;
+            text-align: center;
+        }
+        .btn {
+            padding: 8px 12px;
+            margin: 2px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-accept {
+            background-color: #17a2b8; /* 새로 선택한 색상 */
+            color: white;
+        }
+        .btn-accept:hover {
+            background-color: #138496; /* 호버 효과 */
+        }
+        .btn-deliver {
+            background-color: #6c757d; /* 새로 선택한 색상 */
+            color: white;
+        }
+        .btn-deliver:hover {
+            background-color: #5a6268; /* 호버 효과 */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>주문 관리</h1>
+    <table>
+        <thead>
+        <tr>
+            <th class="checkbox-column"><input type="checkbox"></th>
+            <th>주문번호</th>
+            <th>주문내용</th>
+            <th>상태</th>
+            <th>작업</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="checkbox-column"><input type="checkbox"></td>
+            <td>1</td>
+            <td>
+                준마이 다이긴조  - ¥3,500<br>
+            </td>
+            <td>ORDER</td>
+            <td>
+                <button class="btn btn-accept">주문수락</button>
+                <button class="btn btn-deliver">배달시작</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="checkbox-column"><input type="checkbox"></td>
+            <td>2</td>
+            <td>
+                다사이 23 다이긴조  - ¥8,000<br>
+                야마자키 21년  - ¥12,500
+            </td>
+            <td>ORDER</td>
+            <td>
+                <button class="btn btn-accept">주문수락</button>
+                <button class="btn btn-deliver">배달시작</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="checkbox-column"><input type="checkbox"></td>
+            <td>3</td>
+            <td>
+                쿠보타 만주  - ¥4,200<br>
+                야마자키 21년  - ¥12,500
+            </td>
+            <td>ORDER</td>
+            <td>
+                <button class="btn btn-accept">주문수락</button>
+                <button class="btn btn-deliver">배달시작</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="checkbox-column"><input type="checkbox"></td>
+            <td>4</td>
+            <td>
+                쿠보타 센주  - ¥2,600<br>
+                아카시 블렌디드 위스키  - ¥2,200<br>
+                준마이 다이긴조  - ¥6,000
+            </td>
+            <td>ORDER</td>
+            <td>
+                <button class="btn btn-accept">주문수락</button>
+                <button class="btn btn-deliver">배달시작</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="checkbox-column"><input type="checkbox"></td>
+            <td>5</td>
+            <td>
+                준마이 다이긴조  - ¥6,000<br>
+                이치로스 몰트  - ¥7,000
+            </td>
+            <td>ORDER</td>
+            <td>
+                <button class="btn btn-accept">주문수락</button>
+                <button class="btn btn-deliver">배달시작</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+package org.sake.api.domain.store.service;
+
+
+import lombok.RequiredArgsConstructor;
+import org.sake.api.common.error.ErrorCode;
+import org.sake.api.common.exception.ApiException;
+import org.sake.db.store.StoreEntity;
+import org.sake.db.store.StoreRepository;
+import org.sake.db.store.enums.StoreCategory;
+import org.sake.db.store.enums.StoreStatus;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@RequiredArgsConstructor
+@Service
+public class StoreService {
+
+    private final StoreRepository storeRepository;
+
+    // 유효한 스토어 가져오기
+    public StoreEntity getStoreWithThrow(Long id){
+        var entity = storeRepository.findFirstByIdAndStatusOrderByIdDesc(id, StoreStatus.REGISTRED);
+        return entity.orElseThrow(()-> new ApiException(ErrorCode.NULL_POINT));
+    }
+
+    // 스토어 등록
+    public StoreEntity register(StoreEntity storeEntity){
+        return Optional.ofNullable(storeEntity)
+                .map(it -> {
+
+                    it.setStar(0);
+                    it.setStatus(StoreStatus.REGISTRED);
+                    // TODO 등록일시 추가하기
+
+                    return storeRepository.save(it);
+                })
+                .orElseThrow(()-> new ApiException(ErrorCode.NULL_POINT));
+    }
+
+    // 카테고리로 스토어 검색
+    public List<StoreEntity> searchByCategory(StoreCategory storeCategory){
+        var list = storeRepository.findAllByStatusAndCategoryOrderByStarDesc(
+                StoreStatus.REGISTRED,
+                storeCategory
+        );
+        return list;
+    }
+
+    // 전체 스토어
+    public List<StoreEntity> registerStore(){
+        var list = storeRepository.findAllByStatusOrderByIdDesc(StoreStatus.REGISTRED);
+        return list;
+    }
+}
+
+

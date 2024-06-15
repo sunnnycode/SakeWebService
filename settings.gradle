@@ -1,0 +1,5 @@
+rootProject.name = 'SakeWebService'
+include 'api'
+include 'db'
+include 'store-admin'
+
