@@ -1,5 +1,6 @@
 package org.sake.db.userorder;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,8 +22,15 @@ import java.time.LocalDateTime;
 @Table(name = "user_order")
 public class UserOrderEntity extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false)
     private Long userId; // user table 1:n
+
+    @Column(nullable = false)
+    private Long storeId;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 50, nullable = false)

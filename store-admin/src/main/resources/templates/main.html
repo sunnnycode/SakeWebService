@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주문 관리</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,88 +71,74 @@
             background-color: #5a6268; /* 호버 효과 */
         }
     </style>
+
+
+
 </head>
 <body>
-<div class="container">
-    <h1>주문 관리</h1>
+<div id="app">
     <table>
         <thead>
         <tr>
-            <th class="checkbox-column"><input type="checkbox"></th>
             <th>주문번호</th>
             <th>주문내용</th>
             <th>상태</th>
-            <th>작업</th>
+            <th>액션</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td class="checkbox-column"><input type="checkbox"></td>
-            <td>1</td>
+        <tr v-for="order in orders" :key="order.user_order_response.id">
+            <td>{{ order.user_order_response.id }}</td>
             <td>
-                준마이 다이긴조  - ¥3,500<br>
+                <ul>
+                    <li v-for="item in order.store_menu_response_list" :key="item.id">
+                        {{ item.name }} {{ item.amount }}
+                    </li>
+                </ul>
             </td>
-            <td>ORDER</td>
-            <td>
-                <button class="btn btn-accept">주문수락</button>
-                <button class="btn btn-deliver">배달시작</button>
-            </td>
-        </tr>
-        <tr>
-            <td class="checkbox-column"><input type="checkbox"></td>
-            <td>2</td>
-            <td>
-                다사이 23 다이긴조  - ¥8,000<br>
-                야마자키 21년  - ¥12,500
-            </td>
-            <td>ORDER</td>
-            <td>
-                <button class="btn btn-accept">주문수락</button>
-                <button class="btn btn-deliver">배달시작</button>
-            </td>
-        </tr>
-        <tr>
-            <td class="checkbox-column"><input type="checkbox"></td>
-            <td>3</td>
-            <td>
-                쿠보타 만주  - ¥4,200<br>
-                야마자키 21년  - ¥12,500
-            </td>
-            <td>ORDER</td>
-            <td>
-                <button class="btn btn-accept">주문수락</button>
-                <button class="btn btn-deliver">배달시작</button>
-            </td>
-        </tr>
-        <tr>
-            <td class="checkbox-column"><input type="checkbox"></td>
-            <td>4</td>
-            <td>
-                쿠보타 센주  - ¥2,600<br>
-                아카시 블렌디드 위스키  - ¥2,200<br>
-                준마이 다이긴조  - ¥6,000
-            </td>
-            <td>ORDER</td>
-            <td>
-                <button class="btn btn-accept">주문수락</button>
-                <button class="btn btn-deliver">배달시작</button>
-            </td>
-        </tr>
-        <tr>
-            <td class="checkbox-column"><input type="checkbox"></td>
-            <td>5</td>
-            <td>
-                준마이 다이긴조  - ¥6,000<br>
-                이치로스 몰트  - ¥7,000
-            </td>
-            <td>ORDER</td>
-            <td>
-                <button class="btn btn-accept">주문수락</button>
-                <button class="btn btn-deliver">배달시작</button>
+            <td>{{ order.user_order_response.status }}</td>
+            <td class="button-container">
+                <button @click="acceptOrder(order)">주문수락</button>
+                <button @click="startDelivery(order)">배달시작</button>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
+
+<script>
+    new Vue({
+      el: "#app",
+      data: {
+        orders: [] // 서버로부터 받은 주문 데이터를 저장할 배열
+      },
+      methods: {
+        acceptOrder(order) {
+          console.log("주문수락:", order);
+        },
+        startDelivery(order) {
+          console.log("배달시작:", order);
+        },
+        pushData(order){
+            this.orders.unshift(order);
+        }
+      },
+      mounted() {
+        // SSE 연결
+        const url = "http://localhost:8081/api/sse/connect";    // 접속주소
+        const eventSource = new EventSource(url);               // sse 연결
+
+        eventSource.onopen = event => {
+            console.log("sse connection")
+        }
+
+        eventSource.onmessage = event => {
+            console.log("receive : "+event.data);
+            const data = JSON.parse(event.data);
+            this.pushData(data);
+        }
+      }
+    });
+</script>
 </body>
 </html>

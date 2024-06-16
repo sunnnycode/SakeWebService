@@ -6,6 +6,7 @@ import org.sake.api.domain.userorder.controller.model.UserOrderResponse;
 import org.sake.db.storemenu.StoreMenuEntity;
 import org.sake.db.userorder.UserOrderEntity;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class UserOrderConverter {
 
     public UserOrderEntity toEntity(
             User user,
-            List<StoreMenuEntity> storeMenuEntityList
+            @NotNull Long storeId, List<StoreMenuEntity> storeMenuEntityList
     ){
         var totalAmount = storeMenuEntityList.stream()
                 .map(it -> it.getAmount())
@@ -22,6 +23,7 @@ public class UserOrderConverter {
 
         return UserOrderEntity.builder()
                 .userId(user.getId())
+                .storeId(storeId)
                 .amount(totalAmount)
                 .build()
                 ;

@@ -23,7 +23,7 @@ public class UserOrderService {
             Long userId
     ){
         return userOrderRepository.findAllByIdAndUserId(id, userId)
-            .orElseThrow(()-> new ApiException(ErrorCode.NULL_POINT));
+                .orElseThrow(()-> new ApiException(ErrorCode.NULL_POINT));
     }
 
     public UserOrderEntity getUserOrderWithThrow(
@@ -42,7 +42,7 @@ public class UserOrderService {
         return userOrderRepository.findAllByUserIdAndStatusInOrderByIdDesc(userId, statusList);
     }
 
-    // 현재 진행 중인 내역
+    // 현재 진행중인 내역
     public List<UserOrderEntity> current(Long userId){
         return getUserOrderList(
                 userId,
@@ -54,6 +54,7 @@ public class UserOrderService {
         );
     }
 
+
     // 과거 주문한 내역
     public List<UserOrderEntity> history(Long userId){
         return getUserOrderList(
@@ -64,7 +65,8 @@ public class UserOrderService {
         );
     }
 
-    // 주문(create)
+
+    // 주문 (create)
     public UserOrderEntity order(
             UserOrderEntity userOrderEntity
     ){
@@ -88,6 +90,7 @@ public class UserOrderService {
         userOrderEntity.setAcceptedAt(LocalDateTime.now());
         return setStatus(userOrderEntity, UserOrderStatus.ACCEPT);
     }
+
 
     // 배달 시작
     public UserOrderEntity delivery(UserOrderEntity userOrderEntity){

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 등록</title>
+    <script>
+        function registerMenu() {
+            const name = document.getElementById('name').value;
+            const amount = document.getElementById('amount').value;
+
+            fetch('/api/storemenu', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: name, amount: amount })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('메뉴가 성공적으로 등록되었습니다!');
+                window.location.href = 'menuregisteration.html';
+            });
+        }
+    </script>
+</head>
+<body>
+<h1>메뉴 등록</h1>
+<form onsubmit="registerMenu(); return false;">
+    <label for="name">메뉴 이름:</label>
+    <input type="text" id="name" name="name"><br>
+    <label for="price">가격:</label>
+    <input type="text" id="price" name="price"><br>
+    <input type="submit" value="등록">
+</form>
+<a href="index.html">메인 페이지로 돌아가기</a>
+</body>
+</html>

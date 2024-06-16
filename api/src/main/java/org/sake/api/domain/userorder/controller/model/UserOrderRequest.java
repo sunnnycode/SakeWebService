@@ -13,17 +13,14 @@ import java.util.List;
 @AllArgsConstructor
 public class UserOrderRequest {
 
-    // 주문
-    // 특정 사용자가 특정 메뉴를 주문
-    // 특정 사용자 = 로그인 된 세션에 들어 있는 사용자
-    // 특정 메뉴 id
+    @NotNull
+    private Long storeId;
 
+    // 주문
+    // 특정 사용자가 , 특정 메뉴를 주문
+    // 특정 사용자 = 로그인된 세션에 들어있는 사용자
+    // 특정 메뉴 id
     @NotNull
     private List<Long> storeMenuIdList;
-
-
-    public List<Long> getStoreMenuIdList() {
-        return storeMenuIdList;
-    }
 
 }
