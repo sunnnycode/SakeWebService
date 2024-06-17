@@ -10,6 +10,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")  // 모든 도메인에 대해 CORS 허용
 @RequestMapping("/api/store-menu")
 public class StoreMenuApiController {
 

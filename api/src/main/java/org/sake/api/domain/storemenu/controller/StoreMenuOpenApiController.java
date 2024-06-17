@@ -5,15 +5,13 @@ import org.sake.api.common.api.Api;
 import org.sake.api.domain.storemenu.business.StoreMenuBusiness;
 import org.sake.api.domain.storemenu.controller.model.StoreMenuRegisterRequest;
 import org.sake.api.domain.storemenu.controller.model.StoreMenuResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")  // 모든 도메인에 대해 CORS 허용
 @RequestMapping("/open-api/store-menu")
 public class StoreMenuOpenApiController {
 

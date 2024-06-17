@@ -11,18 +11,40 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
-            padding: 20px;
+            padding: 0;
             margin: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            height: 100vh;
+            padding-top: 20px;
+            color: #ecf0f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: auto;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #ecf0f1;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #34495e;
         }
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-left: 250px;
             padding: 20px;
             background-color: #ffffff;
-            border-radius: 10px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
+            font-size: 2.5em;
             margin-bottom: 20px;
             color: #333;
         }
@@ -43,11 +65,7 @@
         tr:hover {
             background-color: #f1f1f1;
         }
-        .checkbox-column {
-            width: 40px;
-            text-align: center;
-        }
-        .btn {
+        .button {
             padding: 8px 12px;
             margin: 2px;
             border: none;
@@ -56,54 +74,58 @@
             font-size: 14px;
             transition: background-color 0.3s ease;
         }
-        .btn-accept {
+        .button-accept {
             background-color: #17a2b8; /* 새로 선택한 색상 */
             color: white;
         }
-        .btn-accept:hover {
+        .button-accept:hover {
             background-color: #138496; /* 호버 효과 */
         }
-        .btn-deliver {
+        .button-deliver {
             background-color: #6c757d; /* 새로 선택한 색상 */
             color: white;
         }
-        .btn-deliver:hover {
+        .button-deliver:hover {
             background-color: #5a6268; /* 호버 효과 */
         }
     </style>
-
-
-
 </head>
 <body>
-<div id="app">
-    <table>
-        <thead>
-        <tr>
-            <th>주문번호</th>
-            <th>주문내용</th>
-            <th>상태</th>
-            <th>액션</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="order in orders" :key="order.user_order_response.id">
-            <td>{{ order.user_order_response.id }}</td>
-            <td>
-                <ul>
-                    <li v-for="item in order.store_menu_response_list" :key="item.id">
-                        {{ item.name }} {{ item.amount }}
-                    </li>
-                </ul>
-            </td>
-            <td>{{ order.user_order_response.status }}</td>
-            <td class="button-container">
-                <button @click="acceptOrder(order)">주문수락</button>
-                <button @click="startDelivery(order)">배달시작</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div class="sidebar">
+    <a href="main.html">주문 관리</a>
+    <a href="menuregistration.html">메뉴 등록</a>
+</div>
+<div class="container">
+    <h1>주문 관리</h1>
+    <div id="app">
+        <table>
+            <thead>
+            <tr>
+                <th>주문번호</th>
+                <th>주문내용</th>
+                <th>상태</th>
+                <th>작업</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="order in orders" :key="order.user_order_response.id">
+                <td>{{ order.user_order_response.id }}</td>
+                <td>
+                    <ul>
+                        <li v-for="item in order.store_menu_response_list" :key="item.id">
+                            {{ item.name }} {{ item.amount }}
+                        </li>
+                    </ul>
+                </td>
+                <td>{{ order.user_order_response.status }}</td>
+                <td class="button-container">
+                    <button class="button button-accept" @click="acceptOrder(order)">주문수락</button>
+                    <button class="button button-deliver" @click="startDelivery(order)">배달시작</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>

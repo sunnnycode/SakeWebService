@@ -5,6 +5,12 @@
 #        web: DEBUG
 #      hibernate: DEBUG
 
+#http:
+#  encoding:
+#    charset: UTF-8
+#    enabled: true
+#    force: true
+
 server:
   port: 8081
 
